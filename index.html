@@ -6,6 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Tic Tac Toe</title>
 
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Roboto&display=swap"
+            rel="stylesheet"
+        />
+
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
@@ -34,8 +41,62 @@
                     <button class="game-tile"></button>
                 </div>
             </div>
+            <div class="game-footer">
+                <div class="player-score">
+                    <p class="score-label">X (YOU)</p>
+                    <p id="player-num" class="score-num">0</p>
+                </div>
+                <div class="tie-score">
+                    <p class="score-label">TIES</p>
+                    <p id="tie-num" class="score-num">0</p>
+                </div>
+                <div class="opponent-score">
+                    <p class="score-label">O (OPP)</p>
+                    <p id="opponent-num" class="score-num">0</p>
+                </div>
+            </div>
         </div>
-
+        <div class="cross-banner-container">
+            <div class="banner-bg"></div>
+            <div class="winner-banner">
+                <p class="win-text">YOU WON!</p>
+                <div class="winner-name">
+                    <p class="winner-logo-x">X</p>
+                    <p>TAKES THE ROUND!</p>
+                </div>
+                <div class="banner-controls">
+                    <button class="quit-btn">QUIT</button>
+                    <button class="continue-btn">NEXT ROUND</button>
+                </div>
+            </div>
+        </div>
+        <div class="circle-banner-container">
+            <div class="banner-bg"></div>
+            <div class="winner-banner">
+                <p class="win-text">YOU WON!</p>
+                <div class="winner-name">
+                    <p class="winner-logo-o">O</p>
+                    <p class="winner-label-o">TAKES THE ROUND!</p>
+                </div>
+                <div class="banner-controls">
+                    <button class="quit-btn">QUIT</button>
+                    <button class="continue-btn">NEXT ROUND</button>
+                </div>
+            </div>
+        </div>
+        <div class="tie-banner-container">
+            <div class="banner-bg"></div>
+            <div class="winner-banner">
+                <p class="win-text">YOU WON!</p>
+                <div class="winner-name">
+                    <p class="winner-label-tie">IT'S A TIE!</p>
+                </div>
+                <div class="banner-controls">
+                    <button class="quit-btn">QUIT</button>
+                    <button class="continue-btn">NEXT ROUND</button>
+                </div>
+            </div>
+        </div>
         <script src="app.js"></script>
     </body>
 </html>

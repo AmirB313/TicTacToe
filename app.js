@@ -3,6 +3,7 @@ class Tile {
         this.value = "";
         this.i = i;
         this.j = j;
+        this.clicked = false;
     }
 
     setValue(value) {
@@ -16,9 +17,18 @@ class Tile {
     currentValue() {
         return this.value;
     }
+
+    selectTile() {
+        this.clicked = true;
+    }
+
+    isSelected() {
+        return this.clicked;
+    }
 }
 
 let playerFlag = true;
+let tieFlag = false;
 let board = [
     [],
     [],
@@ -26,25 +36,75 @@ let board = [
 ];
 let playerScore = 0;
 let opponentScore = 0;
+let tieScore = 0;
 
 const switchPlayer = () => {
     playerFlag = !playerFlag;
 }
 
+const removeBanner = () => {
+    if (tieFlag) {
+        document.querySelector('.tie-banner-container').style.display = "none";
+    } else {
+        if (playerFlag) {
+            document.querySelector('.cross-banner-container').style.display = "none";
+        } else if (!playerFlag) {
+            document.querySelector('.circle-banner-container').style.display = "none";
+        }
+    }
+    resetGame();
+}
+
+const quitHandler = (event) => {
+    playerScore = 0;
+    opponentScore = 0;
+    tieScore = 0;
+    updateScoreHandler();
+    event.target.removeEventListener('click', quitHandler);
+    removeBanner();
+}
+
+const continueHandler = (event) => {
+    event.target.removeEventListener('click', continueHandler);
+    removeBanner();
+}
+
+const loadBanner = () => {
+    if (tieFlag) {
+        document.querySelector('.tie-banner-container').style.display = "block";
+        document.querySelectorAll('.quit-btn')[2].addEventListener('click', quitHandler);
+        document.querySelectorAll('.continue-btn')[2].addEventListener('click', continueHandler);
+    } else {
+        if (playerFlag) {
+            document.querySelector('.cross-banner-container').style.display = "block";
+            document.querySelectorAll('.quit-btn')[0].addEventListener('click', quitHandler);
+            document.querySelectorAll('.continue-btn')[0].addEventListener('click', continueHandler);
+        } else if (!playerFlag) {
+            document.querySelector('.circle-banner-container').style.display = "block";
+            document.querySelectorAll('.quit-btn')[1].addEventListener('click', quitHandler);
+            document.querySelectorAll('.continue-btn')[1].addEventListener('click', continueHandler);
+        }
+    }
+}
+
 const selectTile = (event) => {
     let clickedTile = event.target;
-    if (playerFlag === true) {
+    if (playerFlag) {
         clickedTile.model.setValue("X");
         clickedTile.innerText = "X";
         clickedTile['id'] = "tile-cross"
-    } else if (playerFlag === false) {
+    } else if (!playerFlag) {
         clickedTile.model.setValue("O")
         clickedTile.innerText = "O";
         clickedTile['id'] = "tile-circle"
     }
+    clickedTile.model.selectTile();
     clickedTile.removeEventListener('click', selectTile);
-    checkScore();
-    switchPlayer();
+    if (checkScore()) {
+        loadBanner();
+    } else {
+        switchPlayer();
+    }
 }
 
 const resetGame = () => {
@@ -55,6 +115,7 @@ const resetGame = () => {
     ];
 
     playerFlag = true;
+    tieFlag = false;
 
     let tiles = document.querySelectorAll('.game-tile');
     tiles.forEach(tile => {
@@ -116,7 +177,24 @@ const diagonalHelper = (playerValue) => {
     return playerWon;
 }
 
+const updateScoreHandler = () => {
+    document.querySelector('#player-num').innerText = `${playerScore}`;
+    document.querySelector('#opponent-num').innerText = `${opponentScore}`;
+    document.querySelector('#tie-num').innerText = `${tieScore}`;
+}
+
+const tieChecker = () => {
+    let isTie = true;
+    board.forEach(col => {
+        col.forEach(tile => {
+            if (!tile.isSelected()) isTie = false;
+        })
+    })
+    return isTie;
+}
+
 const checkScore = () => {
+    let gameOver = false;
     let horizontalWin = false;
     let verticalWin = false;
     let diagonalWin = false;
@@ -131,14 +209,19 @@ const checkScore = () => {
     diagonalWin = diagonalHelper(value);
 
     if (horizontalWin || verticalWin || diagonalWin) {
-        if (playerFlag === true) {
+        if (playerFlag) {
             playerScore++;
-        } else if (playerFlag === false) {
+        } else if (!playerFlag) {
             opponentScore++;
         }
-        console.log(playerScore, opponentScore);
-        resetGame();
+        gameOver = true;
+    } else if (tieChecker()) {
+        tieScore++;
+        tieFlag = true;
+        gameOver = true;
     }
+    updateScoreHandler();
+    return gameOver;
 }
 
 const loadGame = () => {

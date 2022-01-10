@@ -1,9 +1,11 @@
 body {
     background-color: #073b4c;
+    font-family: "Roboto", sans-serif;
 }
 
 .container {
     display: flex;
+    position: relative;
     height: 100vh;
     width: 100vw;
     flex-direction: column;
@@ -75,11 +77,180 @@ body {
 #cross-logo {
     color: #06d6a0;
     font-size: 2.8rem;
+    margin-right: 5px;
 }
 
 #circle-logo {
     color: #ffd166;
     font-size: 2.8rem;
+}
+
+.game-footer {
+    display: flex;
+    margin-top: 0.5rem;
+    height: 4.5rem;
+    width: 28rem;
+    justify-content: space-between;
+}
+
+.player-score,
+.tie-score,
+.opponent-score {
+    display: flex;
+    width: 8.5rem;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.game-footer {
+    font-size: 0.9rem;
+}
+
+.score-label {
+    margin: 0.7rem auto 0.5rem;
+}
+
+.score-num {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: "Fredoka One", cursive;
+}
+
+.player-score {
+    background-color: #06d6a0;
+}
+
+.tie-score {
+    background-color: #819aa4;
+}
+
+.opponent-score {
+    background-color: #ffd166;
+}
+
+.cross-banner-container,
+.circle-banner-container,
+.tie-banner-container {
+    display: none;
+}
+
+.banner-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    opacity: 50%;
+}
+
+.winner-banner {
+    position: absolute;
+    top: 32%;
+    left: 0;
+    width: 100vw;
+    height: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #0e4e63;
+}
+
+.win-text {
+    color: #ecf8f8;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 1rem auto 1rem;
+}
+
+.winner-name {
+    display: flex;
+    width: 40rem;
+    justify-content: center;
+    align-items: center;
+    color: #06d6a0;
+    font-size: 3rem;
+}
+
+.winner-logo-x,
+.winner-logo-o {
+    margin-right: 1rem;
+    font-size: 4rem;
+    font-family: "Fredoka One", cursive;
+}
+
+.winner-logo-o,
+.winner-label-o {
+    color: #ffd166;
+}
+
+.winner-label-tie {
+    color: #819aa4;
+}
+
+.winner-name p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.banner-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4.5rem;
+    margin: 0 auto 0.5rem;
+    width: 17rem;
+}
+
+.quit-btn,
+.continue-btn {
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.quit-btn {
+    width: 6rem;
+    height: 3rem;
+    border-bottom: 5px solid #617b7f;
+    background-color: #819aa4;
+}
+
+.continue-btn {
+    width: 10rem;
+    height: 3rem;
+    border-bottom: 5px solid #efbc68;
+    background-color: #ffd166;
+}
+
+.quit-btn:hover {
+    color: white;
+    border: 6px solid #617b7f;
+}
+
+.continue-btn:hover {
+    color: white;
+    border: 6px solid #efbc68;
+}
+
+.quit-btn:active {
+    color: black;
+    background-color: #617b7f;
+}
+
+.continue-btn:active {
+    color: black;
+    background-color: #efbc68;
+}
+
+#cross-logo,
+#circle-logo,
+.game-tile {
+    font-family: "Fredoka One", cursive;
 }
 
 @media (max-width: 600px) {
@@ -96,6 +267,9 @@ body {
         width: 20rem;
     }
 
+    .game-footer {
+        width: 20rem;
+    }
     .start,
     .reset {
         width: 6rem;
@@ -111,5 +285,20 @@ body {
     #tile-cross,
     #tile-circle {
         font-size: 3rem;
+    }
+
+    .player-score,
+    .tie-score,
+    .opponent-score {
+        width: 6rem;
+    }
+
+    .winner-name {
+        font-size: 1.8rem;
+    }
+
+    .winner-logo-x,
+    .winner-logo-o {
+        font-size: 2.5rem;
     }
 }
