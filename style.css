@@ -76,18 +76,21 @@ body {
 
 #tile-cross__win {
     color: #0e4e63;
+    border-bottom: 8px solid #36827f;
     font-size: 6rem;
     background-color: #06d6a0;
 }
 
 #tile-circle__win {
     color: #0e4e63;
+    border-bottom: 8px solid #fcba21;
     font-size: 6rem;
     background-color: #ffd166;
 }
 
 #tile-tie {
     color: #0e4e63;
+    border-bottom: 8px solid #5e676b;
     font-size: 6rem;
     background-color: #819aa4;
 }
@@ -306,7 +309,10 @@ body {
     }
 
     #tile-cross,
-    #tile-circle {
+    #tile-circle,
+    #tile-cross__win,
+    #tile-circle__win,
+    #tile-tie {
         font-size: 3rem;
     }
 
