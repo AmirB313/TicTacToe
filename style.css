@@ -61,6 +61,12 @@ body {
     border-bottom: 8px solid #002430;
     border-radius: 15px;
     background-color: #0e4e63;
+    transition: scale 0.3s;
+}
+
+.game-tile:hover {
+    border: 8px solid #002430;
+    scale: 1.2;
 }
 
 #tile-cross {
@@ -68,8 +74,25 @@ body {
     font-size: 6rem;
 }
 
-#tile-circle,
-#circle-logo {
+#tile-cross__win {
+    color: #0e4e63;
+    font-size: 6rem;
+    background-color: #06d6a0;
+}
+
+#tile-circle__win {
+    color: #0e4e63;
+    font-size: 6rem;
+    background-color: #ffd166;
+}
+
+#tile-tie {
+    color: #0e4e63;
+    font-size: 6rem;
+    background-color: #819aa4;
+}
+
+#tile-circle {
     color: #ffd166;
     font-size: 6rem;
 }

@@ -87,6 +87,31 @@ const loadBanner = () => {
     }
 }
 
+const endGameEffectsHandler = (winningIndexes) => {
+    let gameTiles = document.querySelectorAll('.game-tile');
+    if (tieFlag) {
+        gameTiles.forEach(tile => {
+            tile.id = "tile-tie"
+        })
+    } else {
+        let winningID = ""
+        if (playerFlag) {
+            winningID = "tile-cross__win"
+        } else if (!playerFlag) {
+            winningID = "tile-circle__win"
+        }
+        console.log(winningIndexes);
+        gameTiles.forEach(tile => {
+            let currentIndex = tile.model.index();
+            winningIndexes.forEach(i => {
+                if (currentIndex[0] === i[0] && currentIndex[1] === i[1]) {
+                    tile.id = winningID;
+                }
+            })
+        })
+    }
+}
+
 const selectTile = (event) => {
     let clickedTile = event.target;
     if (playerFlag) {
@@ -100,7 +125,9 @@ const selectTile = (event) => {
     }
     clickedTile.model.selectTile();
     clickedTile.removeEventListener('click', selectTile);
-    if (checkScore()) {
+    let gameStatus = checkScore();
+    if (gameStatus[0]) {
+        endGameEffectsHandler(gameStatus[1]);
         loadBanner();
     } else {
         switchPlayer();
@@ -127,53 +154,71 @@ const resetGame = () => {
 }
 
 const horizontalHelper = (playerValue) => {
-    let playerWon = false;
+    let playerWon = [false, []];
+    let winningIndexes = [];
     board.forEach(row => {
         let count = 0;
         row.forEach(tile => {
+            if (!playerWon[0]) winningIndexes.push(tile.index());
             if (tile.currentValue() === playerValue) {
                 count++;
             }
         });
-        if (count === 3) {
-            playerWon = true;
-        }
+        if (count === 3) playerWon[0] = true;
+        if (!playerWon[0]) winningIndexes.length = 0;
     })
+    playerWon[1].push(...winningIndexes);
     return playerWon;
 }
 
 const verticalHelper = (playerValue) => {
-    let playerWon = false;
+    let playerWon = [false, []];
+    let winningIndexes = [];
     board[0].forEach(col => {
         let [i, j] = col.index();
         let tileOne = board[i][j].currentValue();
         let tileTwo = board[i + 1][j].currentValue();
         let tileThree = board[i + 2][j].currentValue();
+        let indexes = [[i, j], [i + 1, j], [i + 2, j]];
         if (tileOne === playerValue && tileTwo === playerValue && tileThree === playerValue) {
-            playerWon = true;
+            playerWon[0] = true;
+            winningIndexes.push(...indexes);
         }
+        if (!playerWon[0]) winningIndexes.length = 0;
     })
+    playerWon[1].push(...winningIndexes);
     return playerWon;
 }
 
 const diagonalHelper = (playerValue) => {
-    let playerWon = false;
+    let playerWon = [false, []];
+    let winningIndexes = [];
     let count = 0;
     for (let i = 0; i < 3; i++) {
+        winningIndexes.push([i, i]);
         if (board[i][i].currentValue() === playerValue) count++;
     }
-    if (count === 3) playerWon = true;
+    if (count === 3) { 
+        playerWon[0] = true;
+    } else {
+        winningIndexes.length = 0;
+    }
 
-    if (!playerWon) {
+    if (!playerWon[0]) {
         let j = 0;
         count = 0;
         for (let i = 2; i >= 0; i--) {
+            winningIndexes.push([i, j]);
             if (board[i][j].currentValue() === playerValue) count++;
             j++;
         }
-        if (count === 3) playerWon = true;
+        if (count === 3) { 
+            playerWon[0] = true;
+        } else {
+            winningIndexes.length = 0;
+        }
     }
-
+    playerWon[1].push(...winningIndexes);
     return playerWon;
 }
 
@@ -194,7 +239,7 @@ const tieChecker = () => {
 }
 
 const checkScore = () => {
-    let gameOver = false;
+    let gameOver = [false, []];
     let horizontalWin = false;
     let verticalWin = false;
     let diagonalWin = false;
@@ -204,9 +249,14 @@ const checkScore = () => {
     } else if (!playerFlag) {
         value = "O";
     }
-    horizontalWin = horizontalHelper(value);
-    verticalWin = verticalHelper(value);
-    diagonalWin = diagonalHelper(value);
+    let horizontalResult = horizontalHelper(value);
+    horizontalWin = horizontalResult[0];
+
+    let verticalResult = verticalHelper(value);
+    verticalWin = verticalResult[0];
+
+    let diagonalResult = diagonalHelper(value);
+    diagonalWin = diagonalResult[0];
 
     if (horizontalWin || verticalWin || diagonalWin) {
         if (playerFlag) {
@@ -214,11 +264,18 @@ const checkScore = () => {
         } else if (!playerFlag) {
             opponentScore++;
         }
-        gameOver = true;
+        gameOver[0] = true;
+        if (horizontalWin) {
+            gameOver[1].push(...horizontalResult[1]);
+        } else if (verticalWin) {
+            gameOver[1].push(...verticalResult[1]);
+        } else if (diagonalWin) {
+            gameOver[1].push(...diagonalResult[1]);
+        }
     } else if (tieChecker()) {
         tieScore++;
         tieFlag = true;
-        gameOver = true;
+        gameOver[0] = true;
     }
     updateScoreHandler();
     return gameOver;
