@@ -243,9 +243,4 @@ const loadGame = () => {
     })
 }
 
-// const startGame = () => {
-//     document.querySelector('.start').addEventListener('click', loadGame);
-// }
-
-// startGame();
 loadGame();
