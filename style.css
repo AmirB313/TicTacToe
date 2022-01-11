@@ -67,10 +67,6 @@ body {
     border-radius: 15px;
 }
 
-.reset:hover {
-    border: 6px solid #7c7d80;
-}
-
 .game-board {
     display: flex;
     flex-direction: column;
@@ -98,10 +94,6 @@ body {
     border-bottom: 8px solid #002430;
     border-radius: 15px;
     background-color: #0e4e63;
-}
-
-.game-tile:hover {
-    border: 8px solid #002430;
 }
 
 #tile-cross {
@@ -292,16 +284,6 @@ body {
     background-color: #ffd166;
 }
 
-.quit-btn:hover {
-    color: white;
-    border: 6px solid #617b7f;
-}
-
-.continue-btn:hover {
-    color: white;
-    border: 6px solid #efbc68;
-}
-
 .quit-btn:active {
     color: black;
     background-color: #617b7f;
@@ -316,6 +298,26 @@ body {
 #circle-logo,
 .game-tile {
     font-family: "Fredoka One", cursive;
+}
+
+@media (hover: hover) {
+    .reset:hover {
+        border: 6px solid #7c7d80;
+    }
+
+    .game-tile:hover {
+        border: 8px solid #002430;
+    }
+
+    .quit-btn:hover {
+        color: white;
+        border: 6px solid #617b7f;
+    }
+
+    .continue-btn:hover {
+        color: white;
+        border: 6px solid #efbc68;
+    }
 }
 
 @media (max-width: 600px) {
