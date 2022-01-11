@@ -149,6 +149,7 @@ const resetGame = () => {
 
     playerFlag = true;
     tieFlag = false;
+    document.querySelector('.turn-label').innerText = "X";
 
     let tiles = document.querySelectorAll('.game-tile');
     tiles.forEach(tile => {
