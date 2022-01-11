@@ -53,6 +53,10 @@ body {
 }
 
 .reset {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
     width: 4.5rem;
     height: 3.5rem;
     font-size: 1.3rem;
@@ -84,18 +88,20 @@ body {
 }
 
 .game-tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
     height: 8.5rem;
     width: 8.5rem;
     border: none;
     border-bottom: 8px solid #002430;
     border-radius: 15px;
     background-color: #0e4e63;
-    transition: scale 0.3s;
 }
 
 .game-tile:hover {
     border: 8px solid #002430;
-    scale: 1.2;
 }
 
 #tile-cross {
@@ -262,6 +268,10 @@ body {
 
 .quit-btn,
 .continue-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
     border: none;
     border-radius: 10px;
     font-size: 1rem;
