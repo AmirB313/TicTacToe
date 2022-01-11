@@ -39,7 +39,13 @@ let opponentScore = 0;
 let tieScore = 0;
 
 const switchPlayer = () => {
+    let turnLabel = document.querySelector('.turn-label');
     playerFlag = !playerFlag;
+    if (playerFlag) {
+        turnLabel.innerText = "X";
+    } else if (!playerFlag) {
+        turnLabel.innerText = "O";
+    }
 }
 
 const removeBanner = () => {
