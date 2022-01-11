@@ -1,6 +1,9 @@
 body {
     background-color: #073b4c;
     font-family: "Roboto", sans-serif;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .container {
@@ -46,7 +49,7 @@ body {
 .turn-label {
     margin-right: 0.8rem;
     font-size: 2rem;
-    font-family: 'Fredoka One', cursive;
+    font-family: "Fredoka One", cursive;
 }
 
 .reset {
